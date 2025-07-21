@@ -81,7 +81,7 @@ cd orta-dev-test-be && npm install
 - **Backend**: create `.env` in `orta-dev-test-be`
 
   ```env
-  MONGO_URI=<mongodb+srv://dev:HaAAdO9mxEeP49tt@orta-dev-test.theavbo.mongodb.net/shifts?retryWrites=true&w=majority
+  MONGO_URI=<secret>
   PORT=8000
   JWT_SECRET=secret1234
   NODE_ENV=development
