@@ -174,4 +174,4 @@ npm test    # React Testing Library
 
 The walkthrough is available here:
 
-> **Demo link:** [https://your-loom-or-youtube-link](https://your-loom-or-youtube-link)
+> **Demo link:** []
