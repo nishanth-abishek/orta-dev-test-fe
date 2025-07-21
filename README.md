@@ -1,70 +1,177 @@
-# Getting Started with Create React App
+# Shift Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A two-part application for creating, viewing, editing, and deleting user shifts.\
+– **Frontend:** React + Tailwind, with form validation, table & calendar views\
+– **Backend:** Node.js + Express + MongoDB, documented with Swagger, full CRUD REST API and unit tests
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📝 Overview
 
-### `npm start`
+This exercise extends an existing Shift Management System by adding full CRUD support on both the client and the server:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Users** can create shifts with title, date/time, role, and location
+- **Dashboard** lists upcoming and in-progress shifts; **Details** page shows full info
+- **Calendar** view highlights all shifts by date
+- **Edit / Delete** from the UI with confirmation flows
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🚀 Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Full CRUD**: Create, Read, Update, Delete shifts
+- **Form validation**: React Hook Form + Yup
+- **API integration**: Axios with token injection and error‑toasts
+- **Views**: Table and Calendar for easy navigation
+- **Swagger docs**: Interactive API docs for every route
+- **Unit tests**: Jest + Supertest (backend); React Testing Library (frontend)
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🔧 Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Node.js** v16+ & **npm**
+- **MongoDB** connection (Atlas or local)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## ⚙️ Setup & Run
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 1. Existing User Credentials
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Use the following user to log in and view preloaded shifts (dashboard, shift details, edit/delete):
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```text
+email: "john@example.com"
+password: "StrongPass123!"
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 2. Clone Repositories
 
-## Learn More
+```bash
+git clone https://github.com/nishanth-abishek/orta-dev-test-fe.git
+git clone https://github.com/nishanth-abishek/orta-dev-test-be.git
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+cd orta-dev-test-be
+git checkout feature/shift-crud
+cd ..
+cd orta-dev-test-fe
+git checkout feature/shift-crud
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 3. Install Dependencies
 
-### Code Splitting
+```bash
+# Frontend
+dd orta-dev-test-fe && npm install
+# Backend
+cd orta-dev-test-be && npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 4. Environment Configuration
 
-### Analyzing the Bundle Size
+- **Frontend**: create `.env.local` in `orta-dev-test-fe`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  ```env
+  REACT_APP_BACKEND_URL_LOCAL=http://localhost:8000
+  REACT_APP_BACKEND_URL_PROD=https://orta-dev-test-be.onrender.com
+  REACT_APP_ENVIRONMENT=development
+  ```
 
-### Making a Progressive Web App
+- **Backend**: create `.env` in `orta-dev-test-be`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+  ```env
+  MONGO_URI=<mongodb+srv://dev:HaAAdO9mxEeP49tt@orta-dev-test.theavbo.mongodb.net/shifts?retryWrites=true&w=majority
+  PORT=8000
+  JWT_SECRET=secret1234
+  NODE_ENV=development
+  ```
 
-### Advanced Configuration
+### 5. Running Locally
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **Frontend**
 
-### Deployment
+  ```bash
+  cd orta-dev-test-fe
+  npm start    # http://localhost:3000
+  ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+  - Verify login with the existing user, test dashboard, create/edit/delete flows.
 
-### `npm run build` fails to minify
+- **Backend**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  ```bash
+  cd orta-dev-test-be
+  npm run dev  # http://localhost:8000
+  ```
+
+  - Open Swagger UI at [http://localhost:8000/api/docs](http://localhost:8000/api/docs) to explore and test API endpoints.
+
+---
+
+## 🏗️ Architecture
+
+### Backend Architecture
+
+- **Express** for routing
+- **Mongoose** models (`User`, `Location`, `Shift`)
+- **Controllers** contain business logic; **Routes** map HTTP verbs
+- **Swagger** via `swagger-jsdoc` & `swagger-ui-express` at `/api/docs`
+- **Testing** with Jest & Supertest in `tests/`
+
+### Frontend Architecture
+
+- **Pages / Components**:
+  - `CreateShift.jsx`, `EditShift.jsx`
+  - `Shifts.jsx` (dashboard + calendar)
+  - `ShiftDetails.jsx`
+- **Forms**: React Hook Form + Yup
+- **HTTP**: Axios instance with auth header interceptor
+- **Context**: `TokenContext` for user session
+- **Styling**: Tailwind CSS
+- **Calendar**: react-calendar
+- **Testing**: React Testing Library & Jest
+
+---
+
+## 📑 Swagger Documentation
+
+All backend endpoints are fully documented and available at:
+
+```
+http://localhost:8000/api/docs
+```
+
+
+---
+
+## ✅ Testing
+
+Run tests in both repos:
+
+```bash
+# Backend
+cd orta-dev-test-be
+npm test    # Jest + coverage
+
+# Frontend
+cd orta-dev-test-fe
+npm test    # React Testing Library
+```
+
+---
+
+## Assumptions & Trade-offs
+
+- **No full authentication flow** on the API—JWT checks are stubbed; there are no signup or password‐reset endpoints
+- **Client-side geolocation** used for distance calculations; requires user permission in the browser
+- **Error handling** is basic - only console errors for create & edit shift pages
+- **Tests** cover core user flows but not 100% of edge cases, like race conditions, etc.
+
+---
+
+## Demo Video
+
+The walkthrough is available here:
+
+> **Demo link:** [https://your-loom-or-youtube-link](https://your-loom-or-youtube-link)

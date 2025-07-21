@@ -1,4 +1,3 @@
-// App.js
 import "./App.css";
 import { useEffect, useReducer } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
@@ -12,6 +11,10 @@ import ForgotPassword from "./components/forgotPassword/ForgotPassword";
 import ResetPassword from "./components/forgotPassword/ResetPassword";
 import axios from "./Axios/axios.js";
 import Shifts from "./components/Shifts/Shifts";
+import ShiftDetails from './components/Shifts/ShiftDetails';
+import EditShift from "./components/Shifts/EditShift.jsx";
+import CreateShift from "./components/Shifts/CreateShift.jsx";
+
 
 function App() {
   const storedToken = JSON.parse(localStorage.getItem("authToken"));
@@ -45,6 +48,9 @@ function App() {
               element={userToken ? <Shifts /> : <Navigate to="/login" />}
             />
             <Route path="shifts" element={<Navigate to="/" replace />} />
+            <Route path="shifts/:id" element={<ShiftDetails />} />
+            <Route path="shifts/:id/edit" element={<EditShift />} />
+            <Route path="shifts/create" element={<CreateShift />} />
             <Route
               path="login"
               element={userToken ? <Navigate to="/" /> : <Login />}
